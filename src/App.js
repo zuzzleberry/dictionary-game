@@ -1,14 +1,16 @@
-import logo from "./logo.svg";
 import "./App.css";
 
-import List from "./components/List";
 import React from "react";
+import Choices from "./components/Choices";
 
 function App() {
   const [wordSet, setWordSet] = React.useState([])
+  const [correctAnswer, setCorrectAnswer] = React.useState()
 
   React.useEffect(() => {
-    const randInt = Math.floor(Math.random(10))
+    const answerInt = randInt()
+    setCorrectAnswer(answerInt)
+    console.log(answerInt)
     for (let i = 0; i < 4; i++) {
       fetch('https://random-words-api.vercel.app/word')
       .then(response => response.json())
@@ -27,15 +29,17 @@ function App() {
     }
   }, []);
 
+  const randInt = () => {
+    return Math.floor(Math.random() * 4)
+  }
+
   return (
     <div className="App">
       <h2>Dictionary Game</h2>
-     
-     <button onClick={() => console.log(wordSet)}>log set</button>
-     <p></p>
-      {wordSet.map((item) => {
-        return <button>{item.key}</button>
-      })}
+
+      {/* <p>{wordSet [correctAnswer]}</p> */}
+      <Choices wordSet={wordSet} item/>
+      
     </div>
   );
 }
