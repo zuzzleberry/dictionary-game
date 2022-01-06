@@ -1,11 +1,11 @@
 import React from "react";
 
-const Choices = ({ wordSet }) => {
+const Choices = ({ wordSet, submitAnswer }) => {
   if (wordSet.length === 4) {
     return (
       <>
         {wordSet.map((item) => {
-          return <button key={item.key}>{item.word}</button>;
+          return <button onClick={(e) => submitAnswer(e.target.id)} key={item.key} id={item.key}>{item.word}</button>;
         })}
       </>
     );

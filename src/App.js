@@ -7,7 +7,19 @@ function App() {
   const [wordSet, setWordSet] = React.useState([])
   const [correctAnswer, setCorrectAnswer] = React.useState()
 
+  const [score, setScore] = React.useState(0)
+  const [life, setLife] = React.useState(100)
+
   React.useEffect(() => {
+    callApi()
+  }, []);
+
+  const randInt = () => {
+    return Math.floor(Math.random() * 4)
+  }
+
+  const callApi = () => {
+    setWordSet([])
     const answerInt = randInt()
     setCorrectAnswer(answerInt)
     console.log(answerInt)
@@ -15,8 +27,6 @@ function App() {
       fetch('https://random-words-api.vercel.app/word')
       .then(response => response.json())
       .then((data) => {
-        console.log(data[0].word)
-        console.log(data[0].definition)
         setWordSet(wordSet => [...wordSet, {
           key: i,
           word: data[0].word,
@@ -24,24 +34,51 @@ function App() {
         }])
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
       })
     }
-  }, []);
-
-  const randInt = () => {
-    return Math.floor(Math.random() * 4)
   }
 
-  return (
-    <div className="App">
-      <h2>Dictionary Game</h2>
+  const submitAnswer = (answerKey) => {
+    console.log(answerKey)
+    console.log(correctAnswer)
+    if (answerKey == correctAnswer) {
+      console.log("Correct answer");
 
-      {/* <p>{wordSet [correctAnswer]}</p> */}
-      <Choices wordSet={wordSet} item/>
-      
-    </div>
-  );
+      setScore(score + 1);
+      callApi();
+    } else {
+      console.log("Wrong!");
+
+      setLife(life - 10)
+      callApi();
+    }
+  }
+
+  if (life > 0) {
+    return (
+      <div className="App">
+        <h2>Dictionary Game</h2>
+  
+        {wordSet.length === 4 ? <p>{wordSet[correctAnswer].definition}</p> : null}
+        <Choices wordSet={wordSet} submitAnswer={submitAnswer}/>
+        <p>Your score: {score}</p>
+        <p>Your life: {life}</p>
+      </div>
+    );
+  } else {
+    return (
+      <div className="App">
+        <h2>Dictionary Game</h2>
+  
+        <h3>GAME OVER</h3>
+        <p>Your score: {score}</p>
+        <p>Your life: {life}</p>
+      </div>
+    )
+  }
+
+  
 }
 
 export default App;
