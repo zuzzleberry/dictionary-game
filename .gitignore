@@ -23,6 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 
 #components
-/components/Entry.js
-/components/List.js
-/components/List.css
+src/components/Entry.js
+src/components/List.js
+src/components/List.css
