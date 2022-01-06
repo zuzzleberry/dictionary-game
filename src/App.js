@@ -1,11 +1,13 @@
 import "./App.css";
 
-import React from "react";
+import React, { useCallback } from "react";
 import Choices from "./components/Choices";
 
 function App() {
   const [wordSet, setWordSet] = React.useState([])
+  const [isSetLoaded, setIsSetLoaded] = React.useState(false)
   const [correctAnswer, setCorrectAnswer] = React.useState()
+
 
   const [score, setScore] = React.useState(0)
   const [life, setLife] = React.useState(100)
@@ -14,15 +16,10 @@ function App() {
     callApi()
   }, []);
 
-  const randInt = () => {
-    return Math.floor(Math.random() * 4)
-  }
-
-  const callApi = () => {
+  const callApi = useCallback(() => {
     setWordSet([])
     const answerInt = randInt()
     setCorrectAnswer(answerInt)
-    console.log(answerInt)
     for (let i = 0; i < 4; i++) {
       fetch('https://random-words-api.vercel.app/word')
       .then(response => response.json())
@@ -37,19 +34,18 @@ function App() {
         console.log(error);
       })
     }
-  }
+  }, [wordSet])
 
+  const randInt = () => {
+    return Math.floor(Math.random() * 4)
+  }
   const submitAnswer = (answerKey) => {
-    console.log(answerKey)
-    console.log(correctAnswer)
     if (answerKey == correctAnswer) {
       console.log("Correct answer");
-
       setScore(score + 1);
       callApi();
     } else {
       console.log("Wrong!");
-
       setLife(life - 10)
       callApi();
     }
