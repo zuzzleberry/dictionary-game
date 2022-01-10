@@ -1,5 +1,13 @@
 .App {
   text-align: center;
+  display: block;
+  background-color: #fca311;
+  border: solid 1px;
+  width: 300px;
+  height: 400px;
+  margin: auto;
+  margin-top: 3rem;
+  padding: 2rem;
 }
 
 .App-logo {
@@ -25,4 +33,41 @@
 .Center {
   margin-left: auto;
   margin-right: auto;
+}
+
+button {
+  color: #000000;
+  background-color: #ffffff;
+  font-size: 18px;
+  line-height: 18px;
+  padding: 7px;
+  border-radius: 36px;
+  font-family: 'Sora';
+  font-weight: normal;
+  text-decoration: none;
+  font-style: normal;
+  font-variant: normal;
+  text-transform: none;
+  
+  box-shadow: rgb(0, 0, 0) 2px 5px 0px 0px;
+  border: 2px solid rgb(28, 110, 164);
+  display: inline-block;
+}
+button:hover {
+  background: #c8f3f5;
+  opacity: 50;
+}
+button:active {
+  background: #c8f3f5;
+  opacity: 50;
+}
+
+
+.ChoiceList {
+  display: flex;
+  flex-direction: column;
+}
+
+.Heading {
+  font-weight: bold;
 }

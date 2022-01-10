@@ -54,8 +54,8 @@ function App() {
   if (life > 0) {
     return (
       <div className="App">
-        <h2>Dictionary Game</h2>
-  
+        <h2 className="Heading">Dictionary Game</h2>
+        <p className="Instructions">Match the correct word to the given definition.</p>
         {wordSet.length === 4 ? <p>{wordSet[correctAnswer].definition}</p> : null}
         <Choices wordSet={wordSet} submitAnswer={submitAnswer}/>
         <p>Your score: {score}</p>
@@ -66,6 +66,7 @@ function App() {
     return (
       <div className="App">
         <h2>Dictionary Game</h2>
+        
   
         <h3>GAME OVER</h3>
         <p>Your score: {score}</p>
